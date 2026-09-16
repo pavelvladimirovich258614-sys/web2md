@@ -1,4 +1,12 @@
+# Core engine (web2md.py / supercli.py)
 httpx>=0.27
 beautifulsoup4>=4.12
 markdownify>=0.13
 click>=8.1
+
+# Telegram bot front-end (bot.py)
+python-telegram-bot>=20.7
+
+# CrewAI research crew (crew_pipeline.py) — optional AI summarization path.
+# Requires an OpenAI-compatible API key (OPENAI_API_KEY).
+crewai>=0.70

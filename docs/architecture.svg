@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" role="img" aria-label="web2md architecture">
+  <defs>
+    <linearGradient id="bgA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2f7"/>
+    </linearGradient>
+    <linearGradient id="cy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#0891b2"/></linearGradient>
+    <linearGradient id="in" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient>
+    <linearGradient id="pu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#7e22ce"/></linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#059669"/></linearGradient>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#475569"/></marker>
+  </defs>
+
+  <rect width="880" height="420" rx="16" fill="url(#bgA)"/>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="440" y="34" font-size="20" font-weight="800" fill="#0f172a" text-anchor="middle">web2md — architecture</text>
+  </g>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#0f172a">
+    <g>
+      <rect x="40" y="70" width="180" height="70" rx="12" fill="url(#cy)" stroke="#0e7490" stroke-width="1.5"/>
+      <text x="130" y="100" text-anchor="middle" font-weight="700" fill="#fff">Telegram bot</text>
+      <text x="130" y="120" text-anchor="middle" font-size="11" fill="#ecfeff">bot.py</text>
+    </g>
+    <g>
+      <rect x="40" y="190" width="180" height="70" rx="12" fill="url(#cy)" stroke="#0e7490" stroke-width="1.5"/>
+      <text x="130" y="220" text-anchor="middle" font-weight="700" fill="#fff">CLI</text>
+      <text x="130" y="240" text-anchor="middle" font-size="11" fill="#ecfeff">supercli.py</text>
+    </g>
+    <g>
+      <rect x="40" y="310" width="180" height="70" rx="12" fill="url(#cy)" stroke="#0e7490" stroke-width="1.5"/>
+      <text x="130" y="340" text-anchor="middle" font-weight="700" fill="#fff">CrewAI crew</text>
+      <text x="130" y="360" text-anchor="middle" font-size="11" fill="#ecfeff">crew_pipeline.py</text>
+    </g>
+
+    <g>
+      <rect x="340" y="170" width="200" height="100" rx="12" fill="url(#in)" stroke="#4338ca" stroke-width="1.5"/>
+      <text x="440" y="205" text-anchor="middle" font-weight="700" fill="#fff">web2md core engine</text>
+      <text x="440" y="226" text-anchor="middle" font-size="11" fill="#e0e7ff">fetch · strip noise</text>
+      <text x="440" y="244" text-anchor="middle" font-size="11" fill="#e0e7ff">pick main · html&#8594;md</text>
+      <text x="440" y="262" text-anchor="middle" font-size="11" fill="#e0e7ff">JSON summary</text>
+    </g>
+
+    <g>
+      <rect x="640" y="110" width="200" height="60" rx="12" fill="url(#gr)" stroke="#047857" stroke-width="1.5"/>
+      <text x="740" y="135" text-anchor="middle" font-weight="700" fill="#fff">httpx</text>
+      <text x="740" y="153" text-anchor="middle" font-size="11" fill="#ecfdf5">HTTP fetch</text>
+    </g>
+    <g>
+      <rect x="640" y="195" width="200" height="60" rx="12" fill="url(#gr)" stroke="#047857" stroke-width="1.5"/>
+      <text x="740" y="220" text-anchor="middle" font-weight="700" fill="#fff">BeautifulSoup4</text>
+      <text x="740" y="238" text-anchor="middle" font-size="11" fill="#ecfdf5">parse &amp; clean</text>
+    </g>
+    <g>
+      <rect x="640" y="280" width="200" height="60" rx="12" fill="url(#gr)" stroke="#047857" stroke-width="1.5"/>
+      <text x="740" y="305" text-anchor="middle" font-weight="700" fill="#fff">markdownify</text>
+      <text x="740" y="323" text-anchor="middle" font-size="11" fill="#ecfdf5">HTML &#8594; Markdown</text>
+    </g>
+
+    <g>
+      <rect x="340" y="345" width="200" height="55" rx="12" fill="url(#pu)" stroke="#6b21a8" stroke-width="1.5"/>
+      <text x="440" y="370" text-anchor="middle" font-weight="700" fill="#fff">CrewAI tool wrapper</text>
+      <text x="440" y="388" text-anchor="middle" font-size="11" fill="#faf5ff">@tool — scrape_to_md</text>
+    </g>
+  </g>
+
+  <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <path d="M220,105 C 290,105 300,180 340,200"/>
+    <path d="M220,225 C 290,225 300,210 340,210"/>
+    <path d="M220,345 C 290,345 300,240 340,230"/>
+    <path d="M540,210 C 600,200 620,150 640,140"/>
+    <path d="M540,220 C 600,220 620,225 640,225"/>
+    <path d="M540,245 C 600,250 620,295 640,310"/>
+    <path d="M440,345 L440,272"/>
+  </g>
+</svg>
