@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="260" viewBox="0 0 880 260" role="img" aria-label="web2md">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.55" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#334155"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="880" height="260" rx="18" fill="url(#bg)"/>
+
+  <rect x="28" y="30" width="824" height="200" rx="14" fill="none" stroke="url(#accent)" stroke-width="2" opacity="0.55"/>
+
+  <g transform="translate(56,66)">
+    <rect x="0" y="0" width="92" height="92" rx="20" fill="url(#badge)" stroke="url(#accent)" stroke-width="2"/>
+    <text x="46" y="50" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle" fill="#e2e8f0">web</text>
+    <text x="46" y="76" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="url(#accent)" filter="url(#glow)">2md</text>
+  </g>
+
+  <text x="172" y="92" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="46" font-weight="800" fill="#f8fafc">web2md</text>
+  <text x="172" y="122" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="16" fill="#94a3b8">Web &#8594; clean Markdown &#183; for humans, RAG &amp; AI agents</text>
+
+  <g font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="600">
+    <g transform="translate(56,160)">
+      <rect width="168" height="34" rx="17" fill="url(#badge)" stroke="#22d3ee" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="18" cy="17" r="5" fill="#22d3ee"/>
+      <text x="32" y="22" fill="#e2e8f0">Fast static scraper</text>
+    </g>
+    <g transform="translate(236,160)">
+      <rect width="190" height="34" rx="17" fill="url(#badge)" stroke="#6366f1" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="18" cy="17" r="5" fill="#6366f1"/>
+      <text x="32" y="22" fill="#e2e8f0">CrewAI research crew</text>
+    </g>
+    <g transform="translate(438,160)">
+      <rect width="168" height="34" rx="17" fill="url(#badge)" stroke="#a855f7" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="18" cy="17" r="5" fill="#a855f7"/>
+      <text x="32" y="22" fill="#e2e8f0">Telegram bot</text>
+    </g>
+    <g transform="translate(620,160)">
+      <rect width="186" height="34" rx="17" fill="url(#badge)" stroke="#34d399" stroke-width="1.5" opacity="0.9"/>
+      <circle cx="18" cy="17" r="5" fill="#34d399"/>
+      <text x="32" y="22" fill="#e2e8f0">EN · RU · 中文 docs</text>
+    </g>
+  </g>
+
+  <text x="440" y="220" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">httpx · BeautifulSoup4 · markdownify · python-telegram-bot · crewai</text>
+</svg>
