@@ -199,14 +199,15 @@ def main(argv: list[str] | None = None) -> int:
 
     rec = process_url(args.url, raw=args.raw, max_len=args.max_len,
                       timeout=args.timeout)
-    if not rec["ok"]:
-        print(f"error: {rec['error']}", file=sys.stderr)
-        return 1
 
     if args.json:
         Path(args.json).write_text(
             json.dumps(rec, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"wrote json -> {args.json}", file=sys.stderr)
+
+    if not rec["ok"]:
+        print(f"error: {rec['error']}", file=sys.stderr)
+        return 1
 
     if args.out:
         Path(args.out).write_text(rec["markdown"], encoding="utf-8")

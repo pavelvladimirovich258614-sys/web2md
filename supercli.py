@@ -50,13 +50,16 @@ def cli() -> None:
 @click.option("--timeout", type=float, default=20.0, help="Таймаут запроса, сек.")
 def one(url, out, json_file, max_len, raw, timeout):
     rec = web2md.process_url(url, raw=raw, max_len=max_len, timeout=timeout)
-    if not rec["ok"]:
-        _echo_err(f"ошибка: {rec['error']}")
-        sys.exit(1)
+
     if json_file:
         Path(json_file).write_text(
             json.dumps(rec, ensure_ascii=False, indent=2), encoding="utf-8")
         _echo_ok(f"json -> {json_file}")
+
+    if not rec["ok"]:
+        _echo_err(f"ошибка: {rec['error']}")
+        sys.exit(1)
+
     if out:
         Path(out).write_text(rec["markdown"], encoding="utf-8")
         _echo_ok(f"Markdown ({rec['length']} симв.) -> {out}")
