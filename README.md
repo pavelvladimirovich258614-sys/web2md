@@ -35,7 +35,8 @@ Click a tab to read the documentation in your language. Click a section to expan
 > returns clean Markdown in seconds — no browser engine (Playwright), no
 > external API, no heavy dependencies. It runs on three light libraries
 > (`httpx`, `BeautifulSoup4`, `markdownify`) and powers a CLI, a Telegram bot
-> and a CrewAI agent crew from one shared engine.
+> and a CrewAI agent crew from one shared engine. PDF URLs are handled
+> automatically via `pypdf` (text-layer PDFs; no Docker, no browser).
 
 ### ✨ Features
 - **Single mode**: one URL → Markdown (to console or file).
@@ -45,6 +46,7 @@ Click a tab to read the documentation in your language. Click a section to expan
 - **Main-content selection**: `article`, `main`, `#content`, … or `<body>`.
 - **Length cap** (`--max-len`).
 - **Telegram bot**: send a URL, get Markdown back; `/summary` adds an AI briefing.
+- **PDF support**: any PDF URL is converted to Markdown automatically (text-layer PDFs via `pypdf`); scanned/image-only PDFs need OCR.
 - **CrewAI crew**: a `Web Researcher` + `Content Analyst` crew that scrapes and summarizes.
 
 ### 📦 Installation
@@ -157,6 +159,7 @@ to tune the scrape tool.
 
 ### ⚠️ Limitations
 - Static HTML only (no JS rendering). Heavy JS sites need a browser engine — a future roadmap item.
+- PDF support extracts the text layer only; scanned/image-only PDFs need an OCR step.
 - Not all anti-bot shields are bypassed (Cloudflare/Turnstile need a heavier build).
 
 ### 📄 License
@@ -175,7 +178,8 @@ Released under the **MIT License** — see [LICENSE](LICENSE).
 > отдаёт чистый Markdown — без браузерного движка (Playwright), без внешних
 > API и без тяжёлых зависимостей. Работает на трёх лёгких библиотеках
 > (`httpx`, `BeautifulSoup4`, `markdownify`) и из одного движка питает CLI,
-> Telegram-бота и команду агентов CrewAI.
+> Telegram-бота и команду агентов CrewAI. PDF-ссылки обрабатываются
+> автоматически через `pypdf` (PDF с текстовым слоем; без Docker, без браузера).
 
 ### ✨ Возможности
 - **Одиночный режим**: один URL → Markdown (в консоль или файл).
@@ -186,6 +190,7 @@ Released under the **MIT License** — see [LICENSE](LICENSE).
 - **Ограничение длины** (`--max-len`).
 - **Telegram-бот**: присылайте URL — получайте Markdown; `/summary` добавляет AI-краткое содержание.
 - **Команда CrewAI**: связка `Web Researcher` + `Content Analyst` — скрейпит и кратко излагает.
+- **PDF-поддержка**: любая PDF-ссылка автоматически превращается в Markdown (PDF с текстовым слоем через `pypdf`); для отсканированных PDF нужен OCR.
 
 ### 📦 Установка
 Нужен Python 3.10+.
@@ -297,6 +302,7 @@ python crew_pipeline.py "https://example.com" --max-len 8000 --model gpt-4o-mini
 
 ### ⚠️ Ограничения
 - Только статический HTML (без JS-рендеринга). Тяжёлые JS-сайты требуют браузерного движка — это в планах.
+- PDF-поддержка извлекает только текстовый слой; отсканированные PDF требуют OCR.
 - Обходит не все антибот-защиты (Cloudflare/Turnstile требуют более тяжёлой сборки).
 
 ### 📄 Лицензия
@@ -314,7 +320,8 @@ python crew_pipeline.py "https://example.com" --max-len 8000 --model gpt-4o-mini
 > **价值。** `web2md` 提取任意 URL 的*有效*内容，并在几秒内返回干净的
 > Markdown——无需浏览器引擎（Playwright），无需外部 API，无需重型依赖。
 > 它只依赖三个轻量库（`httpx`、`BeautifulSoup4`、`markdownify`），并从
-> 一个共享引擎驱动 CLI、Telegram 机器人和 CrewAI 智能体团队。
+> 一个共享引擎驱动 CLI、Telegram 机器人和 CrewAI 智能体团队。PDF 链接
+> 通过 `pypdf` 自动处理（含文本层的 PDF；无需 Docker、无需浏览器）。
 
 ### ✨ 功能
 - **单页模式**：一个 URL → Markdown（输出到控制台或文件）。
@@ -324,6 +331,7 @@ python crew_pipeline.py "https://example.com" --max-len 8000 --model gpt-4o-mini
 - **正文选择**：`article`、`main`、`#content` … 或 `<body>`。
 - **长度限制**（`--max-len`）。
 - **Telegram 机器人**：发送 URL 即可得到 Markdown；`/summary` 增加 AI 简报。
+- **PDF 支持**：任意 PDF 链接自动转为 Markdown（含文本层的 PDF 通过 `pypdf`）；扫描/图片型 PDF 需 OCR。
 - **CrewAI 团队**：`Web Researcher` + `Content Analyst` 抓取并提炼摘要。
 
 ### 📦 安装
@@ -436,6 +444,7 @@ python crew_pipeline.py "https://example.com" --max-len 8000 --model gpt-4o-mini
 
 ### ⚠️ 限制
 - 仅支持静态 HTML（无 JS 渲染）。重度 JS 站点需要浏览器引擎——已列入路线图。
+- PDF 支持仅提取文本层；扫描/图片型 PDF 需 OCR。
 - 并非所有反爬虫防护都能绕过（Cloudflare/Turnstile 需要更重的版本）。
 
 ### 📄 许可证

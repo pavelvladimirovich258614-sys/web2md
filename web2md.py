@@ -3,9 +3,10 @@
 
 A minimal, dependency-light reimplementation of the core idea behind
 Crawl4AI / Scrapling: fetch a page, strip noise, return clean Markdown.
-
-Uses only packages already present in the sandbox:
-httpx (fetch), beautifulsoup4 (parse/clean), markdownify (HTML->Markdown).
+Supports HTML pages and PDF documents (text-layer PDFs).
+Uses only light packages:
+httpx (fetch), beautifulsoup4 (parse/clean), markdownify (HTML->Markdown),
+pypdf (PDF -> text).
 
 Usage (single page):
     python3 web2md.py <url> [--out FILE] [--max-len N] [--raw]
@@ -20,6 +21,7 @@ JSON export for a single page:
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import sys
 from pathlib import Path
@@ -48,12 +50,20 @@ MAIN_SELECTORS = [
 ]
 
 
-def fetch(url: str, timeout: float = 20.0) -> str:
-    headers = {"User-Agent": USER_AGENT, "Accept": "text/html,*/*"}
+def fetch(url: str, timeout: float = 20.0) -> tuple[str, str]:
+    """Fetch a URL and return (content, content_type).
+
+    For HTML the content is decoded text; for PDF it is the raw bytes.
+    The content_type is the lowercased Content-Type header (without params).
+    """
+    headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/pdf,*/*"}
     with httpx.Client(headers=headers, follow_redirects=True, timeout=timeout) as client:
         r = client.get(url)
         r.raise_for_status()
-        return r.text
+        ctype = (r.headers.get("content-type") or "text/html").split(";")[0].strip().lower()
+        if "pdf" in ctype:
+            return r.content, ctype
+        return r.text, ctype
 
 
 def strip_noise(soup: BeautifulSoup) -> None:
@@ -113,12 +123,40 @@ def to_markdown(html: str, url: str, *, raw: bool = False, max_len: int | None) 
     return header + md
 
 
+def pdf_to_markdown(data: bytes, url: str, *, max_len: int | None) -> str:
+    """Extract text from a PDF byte stream and return it as Markdown.
+
+    Uses pypdf (imported lazily so the dependency is optional for HTML-only use).
+    Scanned/image-only PDFs without a text layer yield little/no text.
+    """
+    try:
+        from pypdf import PdfReader
+    except ImportError as exc:
+        raise RuntimeError("pypdf is required for PDF support: pip install pypdf") from exc
+
+    title = urlparse(url).path.rsplit("/", 1)[-1] or urlparse(url).netloc
+    reader = PdfReader(io.BytesIO(data))
+    parts: list[str] = []
+    for i, page in enumerate(reader.pages, 1):
+        text = page.extract_text() or ""
+        text = text.strip()
+        if text:
+            parts.append(f"## Page {i}\n\n{text}")
+    body = "\n\n".join(parts).strip()
+    md = clean_markdown(body, max_len)
+    header = f"# {title}\n\nSource: <{url}> (PDF, {len(reader.pages)} page(s))\n\n---\n\n"
+    return header + md
+
+
 def process_url(url: str, *, raw: bool, max_len: int | None, timeout: float) -> dict:
-    """Fetch + convert one URL. Returns a result record (for JSON)."""
+    """Fetch + convert one URL. Returns a result record (for JSON).
+
+    Routes automatically by Content-Type: HTML -> BeautifulSoup, PDF -> pypdf.
+    """
     record = {"url": url, "ok": False, "error": None,
               "title": None, "markdown": None, "length": 0}
     try:
-        html = fetch(url, timeout=timeout)
+        content, ctype = fetch(url, timeout=timeout)
     except httpx.HTTPError as e:
         record["error"] = f"fetch failed: {e}"
         return record
@@ -126,7 +164,15 @@ def process_url(url: str, *, raw: bool, max_len: int | None, timeout: float) -> 
         record["error"] = f"{type(e).__name__}: {e}"
         return record
 
-    md = to_markdown(html, url, raw=raw, max_len=max_len)
+    try:
+        if "pdf" in ctype:
+            md = pdf_to_markdown(content, url, max_len=max_len)
+        else:
+            md = to_markdown(content, url, raw=raw, max_len=max_len)
+    except Exception as e:
+        record["error"] = f"convert failed: {type(e).__name__}: {e}"
+        return record
+
     title_line = md.splitlines()[0].lstrip("# ").strip() if md else url
     record.update(ok=True, title=title_line, markdown=md, length=len(md))
     return record
